@@ -52,7 +52,7 @@ public class PlayerMove : MonoBehaviour {
 	
 		if(status.attacking == false){
             direction = Vector3.Lerp(old_direction, direction, Mathf.Min(Time.deltaTime * 5.0f, 1.0f));
-			chara.Move(direction * Time.deltaTime * move_speed); 
+			chara.Move(direction.normalized * Time.deltaTime * move_speed); 
 			anim.SetFloat("Speed", chara.velocity.magnitude);
 			if(status.died){
 				chara.Move(direction * Time.deltaTime * move_speed * 0); 
