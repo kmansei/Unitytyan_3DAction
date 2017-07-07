@@ -3,20 +3,24 @@ using System.Collections;
 
 public class PlayerMove : MonoBehaviour {
 
-	Vector3 direction; 
+	Vector3 input_direction;
+	Vector3 direction;
+    Vector3 old_direction = new Vector3(0, 0, 0);
+	Vector3 camera_forward;
+
 	public float move_speed = 5.0f; 
-	public float rotate_speed = 180f;  
+	public float rotate_speed = 180f;
+    public CharaAnimation CharaAni;
+
 	private float gravity = 9.8f;  
 	private Animator anim; 
+
 	CharacterController chara;
-	public CharaAnimation CharaAni;
 	CharacterStatus status;
 
-	Transform cam_trans; 
 	void Start () { 
 		chara = GetComponent<CharacterController>(); 
 		anim = GetComponentInChildren<Animator>(); 
-		cam_trans = GameObject.Find("Main Camera").GetComponent<Transform>(); 
 		CharaAni = GetComponent<CharaAnimation>();
 		status = GetComponent<CharacterStatus>();
 
@@ -25,7 +29,8 @@ public class PlayerMove : MonoBehaviour {
 	void Update () {
 		
 		if (chara.isGrounded) {
-			direction = (cam_trans.transform.right * Input.GetAxis("Horizontal")) + (cam_trans.transform.forward * Input.GetAxis("Vertical")); 
+			camera_forward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+			direction = camera_forward * Input.GetAxis ("Vertical") + Camera.main.transform.right * Input.GetAxis ("Horizontal");
 
 			if (direction.sqrMagnitude > 0.1f) { 
 				if (status.attacking == false) {
@@ -43,14 +48,16 @@ public class PlayerMove : MonoBehaviour {
 			}
 
 		}
-		direction.y -= gravity * Time.deltaTime;
+		direction += Vector3.down * gravity * Time.deltaTime;
 	
 		if(status.attacking == false){
+            direction = Vector3.Lerp(old_direction, direction, Mathf.Min(Time.deltaTime * 5.0f, 1.0f));
 			chara.Move(direction * Time.deltaTime * move_speed); 
 			anim.SetFloat("Speed", chara.velocity.magnitude);
 			if(status.died){
 				chara.Move(direction * Time.deltaTime * move_speed * 0); 
 			}
+            old_direction = direction;
 		}
 
 	}
