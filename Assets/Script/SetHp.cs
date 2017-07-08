@@ -4,11 +4,10 @@ using UnityEngine.UI;
 
 public class SetHp : MonoBehaviour {
 
-	private CharacterStatus eStatus;
-	private int count;
 	private UnityEngine.UI.Slider slider;
 	private CharacterStatus status;
-	public int countNow;
+	private int count;
+	private int countNow;
 
 	void Start () {
 		status = GetComponentInParent<CharacterStatus> ();
