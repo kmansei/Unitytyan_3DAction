@@ -3,28 +3,20 @@ using System.Collections;
 
 public class slide : MonoBehaviour {
 
+	private Vector3 slide_direction;
 
-	public PlayerMove Move;
-
-	RaycastHit slideHit;
-
-	bool isSliding = false;
-
-	public Vector3 down;
-
-	public float slideSpeed = 1.0f;
+	public float slide_magnitude = 0.5f;
 
 	const float gravity = 9.8f;
+	bool isSliding = false;
 
+	RaycastHit slideHit;
 	CharacterController chara;
 
-	// Use this for initialization
 	void Start () {
-		Move = GetComponent<PlayerMove>();
 		chara = GetComponent<CharacterController>(); 
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (Physics.Raycast(transform.position, Vector3.down, out slideHit, LayerMask.NameToLayer("Ground"))) {
 			if (Vector3.Angle(slideHit.normal, Vector3.up) > 20){
@@ -44,10 +36,10 @@ public class slide : MonoBehaviour {
 
 		if(isSliding){//滑るフラグが立ってたら
 			Vector3 hitNormal = slideHit.normal;
-			down.x = hitNormal.x*slideSpeed;
-			down.y -= gravity * Time.deltaTime;//重力落下
-			down.z = hitNormal.z*slideSpeed;
-			chara.Move(down); 
+			slide_direction.x = hitNormal.x * slide_magnitude;
+			slide_direction.y -= gravity * Time.deltaTime;
+			slide_direction.z = hitNormal.z * slide_magnitude;
+			chara.Move(slide_direction); 
 		}
 	
 	}

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: c66a18e42b7ac4a5f8b9547b86b5ec26
+timeCreated: 1472712603
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - M+ 1m
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1a132f1190ff547a58554559d667e317, type: 3}
+  - {fileID: 12800000, guid: 544f7aa4c835d446ca962c2959f70924, type: 3}
+  - {fileID: 12800000, guid: 93a3f8c81998e4e9f99cd45f621d2f36, type: 3}
+  - {fileID: 12800000, guid: 076651bfd9c8e45eea11365406228430, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
